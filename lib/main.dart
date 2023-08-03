@@ -3,11 +3,9 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'employeescreen.dart';
 import 'employemodel.dart';
-
 void main() {
   runApp(const MyApp());
 }
-
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -21,21 +19,17 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
 class EmployeeListScreen extends StatefulWidget {
   @override
   _EmployeeListScreenState createState() => _EmployeeListScreenState();
 }
-
 class _EmployeeListScreenState extends State<EmployeeListScreen> {
   List<Employee> employeeList = [];
-
   @override
   void initState() {
     super.initState();
     fetchData();
   }
-
   Future<void> fetchData() async {
     final response = await http
         .get(Uri.parse('http://www.mocky.io/v2/5d565297300000680030a986'));
@@ -46,20 +40,16 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
             .map((item) => Employee(
                   name: item['name'],
                   profileImage: item['profile_image'] ?? '',
-                  // Handle null profile image
-                  companyName:
-                      item['company'] != null ? item['company']['name'] : '',
+                  companyName: item['company'] != null ? item['company']['name'] : '',
                   username: item['username'] != null ? item['username'] : '',
                   phone: item['phone'] != null ? item['phone'] : '',
                   email: item['email'] != null ? item['email'] : '',
-                  address:
-                      item['address'] != null ? item['address']['street'] : '',
+                  address: item['address'] != null ? item['address']['street'] : '',
                 ))
             .toList();
       });
     }
   }
-
   void _showEmployeeDetails(Employee employee) {
     Navigator.of(context).push(
       MaterialPageRoute(
@@ -67,7 +57,6 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
       ),
     );
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
